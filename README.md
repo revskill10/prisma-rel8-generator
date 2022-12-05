@@ -6,7 +6,8 @@
 
 `schema.prisma`
 
-```
+```prisma
+
 generator custom_generator {
   provider = "node ../../node_modules/prisma-rel8-generator"
   output   = "../types"
@@ -17,28 +18,40 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Author {
-  @@map("authors")
 
-  author_id    Int     @id @default(autoincrement())
-  name String  @unique
-  url  String?
+model User {
+
+  @@map("users")
+
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  password String
+  name  String?
   projects Project[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Project {
-  @@map("projects")
-  project_id Int @id @default(autoincrement())
-  author_id Int
-  author   Author @relation(fields: [author_id], references: [author_id])
 
-  name String
+  @@map("projects")
+
+  id Int @id @default(autoincrement())
+  name String @unique
+  user_id Int
+  author   User @relation(fields: [user_id], references: [id])
+
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
+
 ```
 
 Generated `models.hs`
 
-```
+```haskell
+
 
 module Database.Models where
 
@@ -106,5 +119,6 @@ projectModelSchema = TableSchema
       
 
 deriving stock instance f ~ Result => Show (ProjectModel f)
+    
     
 ```
