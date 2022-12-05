@@ -1,4 +1,4 @@
-# prisma-generator-rel8
+# prisma-rel8-generator
 
 > This generator was bootstraped using [create-prisma-generator](https://github.com/YassinEldeeb/create-prisma-generator)
 
