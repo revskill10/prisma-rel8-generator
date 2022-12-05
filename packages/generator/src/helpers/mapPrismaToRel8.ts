@@ -10,6 +10,10 @@ export function mapPrismaToRel8(f: DMMF.Field) {
             return f.isRequired ? 'Bool': '(Maybe Bool)'
         case 'DateTime':
             return f.isRequired ? 'UTCTime' : '(Maybe UTCTime)'
+        case 'Float':
+            return f.isRequired ? 'Float': '(Maybe Float)'
+        case 'Decimal':
+            return f.isRequired ? 'Scientific': '(Maybe Scientific)'
         default:
             return 'Text';
     }
